@@ -17,7 +17,7 @@ jobs:
     strategy:
       #The type of runner that the job will run on
       matrix:
-        node-version: [20.x, 21.x]
+        node-version: [18.x]
 
     #Steps represent a sequence of tasks that will be executed as part of the job
     steps:
