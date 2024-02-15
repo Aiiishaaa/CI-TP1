@@ -2,16 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import Form from "./components/Form";
-import { ToastContainer } from "react-toastify";
+import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <div>
-      <ToastContainer/>
-      <Form />
-    </div>
+    <App />
   </React.StrictMode>
 );
 
