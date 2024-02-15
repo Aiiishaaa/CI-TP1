@@ -3,7 +3,7 @@ name: Build and Test React Application
 on:
   #Triggers the workflow on push or pull request events but only the main branch
   push:
-    branches: [main] 
+    branches: [main]
   pull_request:
     branches: [main]
 
@@ -17,7 +17,7 @@ jobs:
     strategy:
       #The type of runner that the job will run on
       matrix:
-        node-version: [18.x]
+        node-version: [21.x]
 
     #Steps represent a sequence of tasks that will be executed as part of the job
     steps:
