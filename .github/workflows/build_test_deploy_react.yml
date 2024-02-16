@@ -36,7 +36,7 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
-          CODECOV_TOKEN: aed52951-f68d-471e-bc1f-58b46a5e256e
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Generate jsdoc
         run: npm run jsdoc
       - name: Setup Pages
