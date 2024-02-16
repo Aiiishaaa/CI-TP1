@@ -36,7 +36,7 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          CODECOV_TOKEN: aed52951-f68d-471e-bc1f-58b46a5e256e
       - name: Generate jsdoc
         run: npm run jsdoc
       - name: Setup Pages
@@ -48,9 +48,15 @@ jobs:
           # Upload entire repository
           path: build
           if-no-files-found: error
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        env:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: Aiiishaaa/CI-TP1
 
   # Deploy job
   deploy:
+
     # Deploy to the github-pages environment
     environment:
       name: github-pages
@@ -69,3 +75,9 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        env:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: Aiiishaaa/CI-TP1
