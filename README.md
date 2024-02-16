@@ -1,6 +1,4 @@
-# Projet CI CD 
-
-C'est un Projet React avec documentation, tests unitaires et d'intégration.
+## C'est un Projet React avec documentation, tests unitaires et d'intégration. 
 
 
 ## Objectif du Projet
