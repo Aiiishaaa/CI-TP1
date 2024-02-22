@@ -22,32 +22,59 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: npm install
         run: npm install
+
+      - name: Update build version
+        id: update_version
+        run: echo "BUILD_VERSION=v${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Update README with build version
+        run: |
+          npm version patch -m "Upgrade to %s for reasons"
+          VERSION=$(node -p -e "require('./package.json').version")
+          echo "Version actuelle : $VERSION" >> README.md
+        shell: bash
+
       - name: npm ci, build and test
         run: |
           npm ci
           npm run build --if-present
           npm test
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
       - name: Generate jsdoc
         run: npm run jsdoc
+
+      - name: Save artifact
+        id: save-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: previous-artifact-v${{ env.BUILD_VERSION }}
+          path: build
+      
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           # Upload entire repository
           path: build
-          if-no-files-found: error
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         env:
@@ -80,3 +107,9 @@ jobs:
         env:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: Aiiishaaa/CI-TP1
+
+      - name: Update README with previous version and artifact link
+        run: |
+          PREVIOUS_VERSION=$(grep -oP 'Version actuelle : \K[0-9]+\.[0-9]+\.[0-9]+' README.md)
+          echo "Previous Version: $PREVIOUS_VERSION → [Link to the previous artifact](https://github.com/${{ github.repository }}/actions/runs/${{ steps.save-artifact.outputs.run_id }}/artifacts)" >> README.md
+        shell: bash

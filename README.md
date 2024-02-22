@@ -1,5 +1,18 @@
-## C'est un Projet React avec documentation, tests unitaires et d'intégration. 
+## C'est un Projet React avec documentation, tests unitaires et d'intégration.
 
+## Version Actuelle : V${{ env.BUILD_VERSION }}
+
+Version précédente : Vx.y.z → [lien vers l'artifact précédent](https://github.com/${{ github.repository }}/actions/runs/${{ steps.save-artifact.outputs.run_id }}/artifacts)
+
+L'application est actuellement à la version Vx.y.z. Consultez ci-dessous pour plus d'informations sur les versions antérieures et pour accéder à la documentation.
+
+### Mises à Jour Récentes
+
+- **Version Actuelle :** Vx.y.z
+  - Ajout de la fonctionnalité XYZ.
+  - Correction de bugs mineurs.
+
+[**Voir toutes les mises à jour**](https://github.com/Aiiishaaa/CI-TP1/releases)
 
 ## Objectif du Projet
 
@@ -47,6 +60,12 @@ Exécutez les tests avec la commande : `npm test`
 
 La documentation complète du projet est disponible dans le dossier `/docs`. Assurez-vous de consulter la documentation pour une compréhension approfondie du projet.
 
+## Artifact du Job Précédent
+
+Version précédente : V${{ env.BUILD_VERSION }} → [lien vers l'artifact précédent](https://github.com/${{ github.repository }}/actions/runs/${{ steps.save-artifact.outputs.run_id }}/artifacts)
+
+Consultez l'artifact généré lors du job précédent pour la version précédente : [Artifact précédent](https://github.com/Aiiishaaa/CI-TP1/actions/runs/${{ github.run_id }}/job/${{ steps.save-artifact.outputs.job_id }}/artifacts)
+
 ## Contribution
 
 1. Fork du projet
@@ -58,5 +77,3 @@ La documentation complète du projet est disponible dans le dossier `/docs`. Ass
 ## Ignorer des fichiers
 
 Assurez-vous d'ignorer les fichiers inutiles en ajoutant `node_modules`, le dossier de couverture et le dossier de documentation dans le fichier `.gitignore`.
-
- 
