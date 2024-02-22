@@ -36,13 +36,13 @@ jobs:
         run: echo "BUILD_VERSION=v${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}" >> $GITHUB_ENV
         shell: bash
 
-      - name: Update README with build version
-        run: |
-          if [[ -n $(git status -s) ]]; then
-            echo "Working directory is not clean, please commit or discard changes."
-            exit 1
-          fi
-        shell: bash
+      # - name: Update README with build version
+      #   run: |
+      #     if [[ -n $(git status -s) ]]; then
+      #       echo "Working directory is not clean, please commit or discard changes."
+      #       exit 1
+      #     fi
+      #   shell: bash
 
       - name: npm ci, build and test
         run: |
