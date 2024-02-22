@@ -34,11 +34,13 @@ jobs:
       - name: npm install
         run: npm install
 
-      - name: npm ci, build and test
+      - name: npm ci, Generate jsdoc, build ,test
         run: |
           npm ci
+          run: npm run jsdoc
           npm run build --if-present
           npm test
+      
 
       - name: configuration User
         run: |
@@ -47,8 +49,13 @@ jobs:
       
       - name: Update versionning
         run: |
+            if [[ -n $(git status -s) ]]; then
+              echo "Working directory is not clean, please commit or discard changes."
+              exit 1
+            fi
             git tag v0.1.0-${{github.run_id}}${{github.run_number}}${{github.run_attempt}}
             npm version from-git --allow-same-version
+  
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -61,8 +68,6 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Generate jsdoc
-        run: npm run jsdoc
 
       - name: Setup Pages
         id: pages
@@ -105,5 +110,3 @@ jobs:
         env:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: Aiiishaaa/CI-TP1
-
-   
