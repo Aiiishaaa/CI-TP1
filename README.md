@@ -1,4 +1,5 @@
-## C'est un Projet React avec documentation, tests unitaires et d'intégration.
+## Projet React d'Enregistrement Utilisateur avec Tests Unitaires et Documentation
+
 
 ## Version Actuelle : V${{ env.BUILD_VERSION }}
 
@@ -8,9 +9,10 @@ L'application est actuellement à la version Vx.y.z. Consultez ci-dessous pour p
 
 ### Mises à Jour Récentes
 
-- **Version Actuelle :** Vx.y.z
-  - Ajout de la fonctionnalité XYZ.
-  - Correction de bugs mineurs.
+**Version Actuelle :** V${{ env.BUILD_VERSION }}
+
+Cette section fournit aux utilisateurs des informations cruciales sur la version actuelle du projet. La version est générée automatiquement à chaque déploiement réussi, permettant aux utilisateurs de suivre les évolutions du logiciel. Interprétez la version en considérant la sémantique de versionnage (MAJOR.MINOR.PATCH). Pour des informations plus détaillées sur chaque version, consultez la section "Mises à Jour Récentes" et les [Releases](https://github.com/Aiiishaaa/CI-TP1/releases).
+
 
 [**Voir toutes les mises à jour**](https://github.com/Aiiishaaa/CI-TP1/releases)
 
@@ -19,6 +21,8 @@ L'application est actuellement à la version Vx.y.z. Consultez ci-dessous pour p
 L'objectif est de créer un projet en React permettant à un utilisateur de s'enregistrer via un formulaire. Le formulaire doit collecter les informations suivantes : nom, prénom, mail, date de naissance, ville, code postal. Un bouton de sauvegarde est présent et non cliquable tant que les champs précédents ne sont pas remplis.
 
 Si les champs sont valides, les données sont sauvegardées dans le local storage, un toaster de succès est affiché, et les champs sont vidés. En cas d'erreurs, un toaster d'erreur est affiché, et des messages d'erreur rouges sont affichés sous chaque champ en erreur.
+
+L'objectif de ce projet est de fournir une expérience utilisateur fluide en permettant l'enregistrement d'utilisateurs via un formulaire React. En créant une interface intuitive, le projet simplifie le processus d'enregistrement tout en garantissant la validation rigoureuse des données. Nous croyons que cette application apporte une contribution significative en alliant robustesse technique et facilité d'utilisation.
 
 ## Règles de Validation
 
@@ -29,7 +33,8 @@ Si les champs sont valides, les données sont sauvegardées dans le local storag
 
 ## Fonctions de Vérification
 
-Les fonctions de vérification sont placées dans un fichier JavaScript à part et doivent être totalement testées. De plus, les composants React doivent être testés, visant une couverture de test de 100% (à l'exception de index.js et reportWebVitals). La documentation complète doit également être fournie.
+Les fonctions de vérification, telles que le calcul de l'âge, la validation du code postal et la vérification de l'email, sont des implémentations personnalisées intégrées dans le projet. Ces fonctionnalités sont cruciales pour garantir la validité des données entrées par les utilisateurs.
+
 
 ## Tests Minimum Requis
 
@@ -44,8 +49,9 @@ Les fonctions de vérification sont placées dans un fichier JavaScript à part 
 
 ## Liens Importants
 
-- [**Déploiement actif**](https://aiiishaaa.github.io/CI-TP1/) (GitHub Pages)
-- [**Rapport de couverture de code**](https://app.codecov.io/gh/Aiiishaaa/CI-TP1)
+- [**Déploiement actif**](https://aiiishaaa.github.io/CI-TP1/) (GitHub Pages) ![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Active-brightgreen)
+- [**Rapport de couverture de code**](https://app.codecov.io/gh/Aiiishaaa/CI-TP1) ![Codecov](https://img.shields.io/codecov/c/github/Aiiishaaa/CI-TP1)
+
 
 ## Installation
 
