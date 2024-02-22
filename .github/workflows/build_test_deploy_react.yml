@@ -47,6 +47,10 @@ jobs:
           git config --global user.email "aicha.hamida06@yahoo.fr"
           git config --global user.name "Aiiishaaa"
       
+      - name: Check working directory status
+        run: git status
+
+
       - name: Update versionning
         run: |
             if [[ -n $(git status -s) ]]; then
