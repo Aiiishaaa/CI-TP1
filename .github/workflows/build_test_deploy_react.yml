@@ -11,6 +11,9 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build_test:
+    permissions: # Job-level permissions configuration starts here
+      contents: write # 'write' access to repository contents
+      pull-requests: write # 'write' access to pull requests
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -31,24 +34,26 @@ jobs:
       - name: npm install
         run: npm install
 
-      - name: Update build version
-        id: update_version
-        run: echo "BUILD_VERSION=v${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}" >> $GITHUB_ENV
-        shell: bash
-
-      # - name: Update README with build version
-      #   run: |
-      #     if [[ -n $(git status -s) ]]; then
-      #       echo "Working directory is not clean, please commit or discard changes."
-      #       exit 1
-      #     fi
-      #   shell: bash
-
       - name: npm ci, build and test
         run: |
           npm ci
           npm run build --if-present
           npm test
+
+      - name: Update versionning
+        run: |
+          git config --global user.email "aicha.hamida06@yahoo.fr"
+          git config --global user.name "Aiiishaaa"
+          npm i -g semver
+          npm version $(semver 0.1.1 -i prerelease --preid ${{github.run_id}}-${{github.run_number}}-${{github.run_attempt}})
+          echo $(semver 0.1.1 -i prerelease --preid ${{github.run_id}}-${{github.run_number}}-${{github.run_attempt}}) >> README.md
+          git commit -a -m "new version ${{github.run_id}}-${{github.run_number}}-${{github.run_attempt}}"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -58,16 +63,15 @@ jobs:
       - name: Generate jsdoc
         run: npm run jsdoc
 
-      - name: Save artifact
-        id: save-artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: previous-artifact-v${{ env.BUILD_VERSION }}
-          path: build
-
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          # Upload entire repository
+          path: build
+          if-no-files-found: error
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
@@ -108,8 +112,4 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: Aiiishaaa/CI-TP1
 
-      # - name: Update README with previous version and artifact link
-      #   run: |
-      #     PREVIOUS_VERSION=$(grep -oP 'Version actuelle : \K[0-9]+\.[0-9]+\.[0-9]+' README.md)
-      #     echo "Previous Version: $PREVIOUS_VERSION → [Link to the previous artifact](https://github.com/${{ github.repository }}/actions/runs/${{ needs.build_test.outputs.save-artifact }}/artifacts)" >> README.md
-      #   shell: bash
+   
