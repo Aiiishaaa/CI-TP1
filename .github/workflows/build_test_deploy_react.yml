@@ -40,14 +40,15 @@ jobs:
           npm run build --if-present
           npm test
 
-      - name: Update versionning
+      - name: configuration User
         run: |
           git config --global user.email "aicha.hamida06@yahoo.fr"
           git config --global user.name "Aiiishaaa"
-          npm i -g semver
-          npm version $(semver 0.1.1 -i prerelease --preid ${{github.run_id}}-${{github.run_number}}-${{github.run_attempt}})
-          echo $(semver 0.1.1 -i prerelease --preid ${{github.run_id}}-${{github.run_number}}-${{github.run_attempt}}) >> README.md
-          git commit -a -m "new version ${{github.run_id}}-${{github.run_number}}-${{github.run_attempt}}"
+      
+      - name: Update versionning
+        run: |
+            git tag v0.1.0-${{github.run_id}}${{github.run_number}}${{github.run_attempt}}
+            npm version from-git --allow-same-version
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -69,21 +70,14 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          # Upload entire repository
           path: build
           if-no-files-found: error
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          # Upload entire repository
-          path: build
-
+   
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         env:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: Aiiishaaa/CI-TP1
 
   # Deploy job
   deploy:
