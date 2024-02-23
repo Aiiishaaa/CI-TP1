@@ -58,10 +58,6 @@ jobs:
 
       - name: Update versioning
         run: |
-            if [[ -n $(git status -s) ]]; then
-              echo "Working directory is not clean, please commit or discard changes."
-              exit 1
-            fi
             git tag v0.1.0-${{ github.run_id }}${{ github.run_number }}${{ github.run_attempt }}
             npm version from-git --allow-same-version   
 
