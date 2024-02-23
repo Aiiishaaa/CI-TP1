@@ -56,15 +56,23 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
 
-      - name: Update versionning
+      - name: Update versioning
         run: |
-            if [[ -n $(git status -s -u) ]]; then
+            if [[ -n $(git status -s) ]]; then
               echo "Working directory is not clean, please commit or discard changes."
               exit 1
             fi
-            git tag v0.1.0-${{github.run_id}}${{github.run_number}}${{github.run_attempt}}
-            npm version from-git --allow-same-version
-        
+            git tag v0.1.0-${{ github.run_id }}${{ github.run_number }}${{ github.run_attempt }}
+            npm version from-git --allow-same-version   
+
+      - name: Push tags
+        run: |
+          git push origin --tags
+
+      - name: Debugging - Show Git Changes
+        run: |
+            git status -s
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
