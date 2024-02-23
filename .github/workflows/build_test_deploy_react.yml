@@ -47,23 +47,24 @@ jobs:
           git config --global user.name "Aiiishaaa"
 
       - name: Check working directory status
-        run: git status
+        run: |
+          git status -s
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-          
+
       - name: Update versionning
         run: |
-          if [[ -n $(git status -s) ]]; then
-            echo "Working directory is not clean, please commit or discard changes."
-            exit 1
-          fi
-          git tag v0.1.0-${{github.run_id}}${{github.run_number}}${{github.run_attempt}}
-          npm version from-git --allow-same-version
-
+            if [[ -n $(git status -s -u) ]]; then
+              echo "Working directory is not clean, please commit or discard changes."
+              exit 1
+            fi
+            git tag v0.1.0-${{github.run_id}}${{github.run_number}}${{github.run_attempt}}
+            npm version from-git --allow-same-version
+        
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
